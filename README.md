@@ -8,8 +8,27 @@ AI 生成 PPT 时，**LLM 只写内容，所有几何由程序计算**。可以�
 ## 安装
 
 ```bash
-pip install -e ".[langchain]"          # 渲染预览图另需 libreoffice + poppler-utils + Pillow
+pip install -e ".[langchain,style]"    # 渲染预览图另需 libreoffice + poppler-utils
 ```
+
+## 用户上传图片或 Excel 作为样式参考
+
+```python
+from deckforge import extract_style, render_deck
+rep = extract_style("uploads/brand.xlsx", contracts_dir="./styles")   # 或 .png/.jpg 截图
+render_deck(deck, contract=rep["name"], contracts_dir="./styles")
+```
+
+| 参考文件 | 能提取的 | 提取方式 |
+|---|---|---|
+| 幻灯片截图 / 海报 / logo | 背景色、文字色、强调色；16:9 截图还能提取页边距 | 按真实像素分桶，强调色按色相聚类后取最实的颜色，小字号眉标也能取到 |
+| 品牌规范 Excel | 各角色颜色、标题字体与正文字体 | 识别「主色 \| #C8102E」「背景 \| RGB(…)」「辅助色 \| 色块单元格」「标题字体 \| 思源黑体」 |
+| 普通 Excel | 强调色、文字色、主题字体 | 自定义主题（跳过 Office 默认主题）→ 表头填充色 → 字体色 |
+
+- **只取配色、页边距、字体。** 字号层级、网格、间距继承自基础规范：层级比例是专业感的主要来源，从截图反推误差太大。
+- **对比度自动校正并逐条报告。** 例如浅黄品牌色做小字时会被压暗到可读，返回的 `adjustments` 写明改了什么，便于告诉用户。
+- **截图取色是近似值。** 要精确品牌色，请提供色值或 Excel。字体名会写进 PPTX（西文和中文两个槽位都写），打开 PPT 的电脑需要已安装该字体。
+- **作为工具时**：`get_deck_tools(uploads_dir=...)` 会把 `extract_style` 限制在上传目录内读文件。文件路径由模型传入，生产环境请务必设置。
 
 ## 用法一：作为 agent 的工具
 
@@ -22,7 +41,8 @@ agent = create_agent(model, tools=get_deck_tools(out_dir="./decks"), system_prom
 
 | 工具 | 作用 |
 |---|---|
-| `list_deck_contracts` | 列出设计规范及适用场景，让模型按场景（不是话题）选择 |
+| `list_deck_contracts` | 列出设计规范及适用场景（含已提取的），让模型按场景（不是话题）选择 |
+| `extract_style` | 从用户上传的图片 / Excel 提取设计规范，返回规范名 |
 | `validate_deck` | 只校验内容：版式、条数、字数上限 |
 | `render_deck` | 排版、几何检查，输出 PPTX |
 
@@ -66,6 +86,7 @@ deckforge/
   pipeline.py    校验 → 排版 → 几何检查 → PPTX → 预览
   tools.py       LangChain 工具
   chain.py       LangChain 链（需求 → deck → PPTX，带修复循环）
+  style.py       从参考图片 / Excel 提取设计规范
   engine/        排版引擎、检查器、PPTX 导出（标准库 + python-pptx）
   contracts/     设计规范
 skills/deck-forge/SKILL.md

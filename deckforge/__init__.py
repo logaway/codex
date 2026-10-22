@@ -2,8 +2,9 @@
 
 from .pipeline import check_deck, list_contracts, render_deck
 from .schema import Deck
+from .style import extract_style
 
-__all__ = ["Deck", "check_deck", "list_contracts", "render_deck",
+__all__ = ["Deck", "check_deck", "extract_style", "list_contracts", "render_deck",
            "get_deck_tools", "create_deck_author", "create_deck_chain"]
 
 

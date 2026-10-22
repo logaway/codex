@@ -56,7 +56,8 @@ def test_label_titles_are_flagged(tmp_path):
 
 def test_langchain_tools(tmp_path):
     tools = {t.name: t for t in get_deck_tools(out_dir=str(tmp_path))}
-    assert set(tools) == {"list_deck_contracts", "validate_deck", "render_deck"}
+    assert set(tools) == {"list_deck_contracts", "extract_style",
+                          "validate_deck", "render_deck"}
     names = [c["name"] for c in json.loads(tools["list_deck_contracts"].invoke({}))]
     assert "exec-brief" in names
 

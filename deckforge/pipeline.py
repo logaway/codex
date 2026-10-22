@@ -19,15 +19,31 @@ from .engine.deckschema import coerce, validate
 CONTRACTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "contracts")
 
 
-def list_contracts():
+def _dirs(contracts_dir):
+    # 用户提取的规范优先：名字相同时用户的赢（style.extract_style 已禁止覆盖内置名）
+    return [d for d in (contracts_dir, CONTRACTS_DIR) if d and os.path.isdir(d)]
+
+
+def load_contract(name, contracts_dir=None):
+    for d in _dirs(contracts_dir):
+        p = os.path.join(d, name + ".json")
+        if os.path.exists(p):
+            return json.load(open(p, encoding="utf-8"))
+    return None
+
+
+def list_contracts(contracts_dir=None):
     """返回每个设计规范的选择依据（use_when / not_when / signature / avoid）。"""
-    out = []
-    for f in sorted(os.listdir(CONTRACTS_DIR)):
-        if not f.endswith(".json"):
-            continue
-        d = json.load(open(os.path.join(CONTRACTS_DIR, f), encoding="utf-8"))
-        out.append({k: d.get(k) for k in
-                    ("name", "use_when", "not_when", "signature", "avoid")})
+    out, seen = [], set()
+    for d in _dirs(contracts_dir):
+        for f in sorted(os.listdir(d)):
+            if not f.endswith(".json") or f in seen:
+                continue
+            seen.add(f)
+            c = json.load(open(os.path.join(d, f), encoding="utf-8"))
+            out.append({k: c.get(k) for k in
+                        ("name", "use_when", "not_when", "signature", "avoid", "based_on")
+                        if c.get(k) is not None})
     return out
 
 
@@ -38,7 +54,7 @@ def check_deck(deck):
 
 
 def render_deck(deck, out_dir=None, contract=None, pptx_name="deck.pptx",
-                preview=False, strict=False):
+                preview=False, strict=False, contracts_dir=None):
     """把 deck dict 渲染成可编辑 PPTX。
 
     返回 dict：
@@ -53,9 +69,10 @@ def render_deck(deck, out_dir=None, contract=None, pptx_name="deck.pptx",
     if contract:
         deck.setdefault("meta", {})["contract"] = contract
     name = deck.get("meta", {}).get("contract", "editorial-report")
-    if not os.path.exists(os.path.join(CONTRACTS_DIR, name + ".json")):
+    contract_data = load_contract(name, contracts_dir)
+    if contract_data is None:
         errors.append(f"设计规范 '{name}' 不存在。可用："
-                      + ", ".join(c["name"] for c in list_contracts()))
+                      + ", ".join(c["name"] for c in list_contracts(contracts_dir)))
     if errors:
         return {"ok": False, "errors": errors}
 
@@ -64,7 +81,7 @@ def render_deck(deck, out_dir=None, contract=None, pptx_name="deck.pptx",
     pages_dir = os.path.join(out_dir, "pages")
 
     try:
-        built = _build.build_deck(deck, pages_dir)
+        built = _build.build_deck(deck, pages_dir, contract=contract_data)
     except ValueError as e:
         return {"ok": False, "errors": [str(e)]}
 

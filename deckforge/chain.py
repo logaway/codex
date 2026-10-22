@@ -83,9 +83,13 @@ def create_deck_author(llm, contract="editorial-report", rounds=3):
 
 
 def create_deck_chain(llm, contract="editorial-report", out_dir=None,
-                      preview=False, rounds=3):
-    """需求文字 → pipeline.render_deck 的结果 dict（含 pptx 路径、告警、禁止清单）。"""
+                      preview=False, rounds=3, contracts_dir=None):
+    """需求文字 → pipeline.render_deck 的结果 dict（含 pptx 路径、告警、禁止清单）。
+
+    用参考文件的样式：先 extract_style(path, contracts_dir)，再把返回的 name
+    作为 contract、同一个 contracts_dir 传进来。"""
     render = RunnableLambda(
-        lambda deck: pipeline.render_deck(deck, out_dir=out_dir, preview=preview),
+        lambda deck: pipeline.render_deck(deck, out_dir=out_dir, preview=preview,
+                                          contracts_dir=contracts_dir),
         name="render_deck")
     return create_deck_author(llm, contract, rounds) | render

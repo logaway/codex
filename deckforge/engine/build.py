@@ -489,12 +489,17 @@ SHAPES = {"title": page_title, "table": page_table, "pipeline": page_pipeline, "
           "statement": page_statement}
 
 
-def build_deck(deck, out_dir, contract_name=None):
-    """build() 的函式版：吃 dict、不列印，回傳頁面路徑、告警與禁止清單。"""
+def build_deck(deck, out_dir, contract_name=None, contract=None):
+    """build() 的函式版：吃 dict、不列印，回傳頁面路徑、告警與禁止清單。
+
+    contract 可直接傳入契約 dict（例如從使用者參考檔提取的），否則按名稱讀內建契約。"""
     meta = deck.get("meta", {})
-    name = contract_name or meta.get("contract", "editorial-report")
-    ct = Contract(json.load(open(os.path.join(CONTRACTS, name + ".json"),
-                                encoding="utf-8")))
+    if contract is None:
+        name = contract_name or meta.get("contract", "editorial-report")
+        contract = json.load(open(os.path.join(CONTRACTS, name + ".json"),
+                                  encoding="utf-8"))
+    name = contract["name"]
+    ct = Contract(contract)
     os.makedirs(out_dir, exist_ok=True)
     written, warns, pages_ops = [], [], []
     pages = deck["pages"]

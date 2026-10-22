@@ -7,8 +7,9 @@ dependencies = ["pydantic>=2", "python-pptx>=1.0"]
 
 [project.optional-dependencies]
 langchain = ["langchain-core>=1.0"]
+style = ["Pillow>=10", "openpyxl>=3.1"]     # 从参考图片 / Excel 提取样式
 preview = ["Pillow>=10"]
-dev = ["pytest", "langchain-core>=1.0"]
+dev = ["pytest", "langchain-core>=1.0", "Pillow>=10", "openpyxl>=3.1"]
 
 [build-system]
 requires = ["setuptools>=68"]

@@ -12,9 +12,6 @@ from typing import Annotated, List, Literal, Optional, Union
 
 from pydantic import BaseModel, Field
 
-Contract = Literal["editorial-report", "exec-brief", "technical-deck",
-                   "stat-callout", "review-scorecard"]
-
 ACTION_TITLE = "结论式标题：用完整句子陈述本页结论，不要写话题标签（好：「华东增速已放缓到3%」；坏：「市场分析」）"
 
 
@@ -109,9 +106,10 @@ Page = Annotated[Union[TitlePage, MetricsPage, PointsPage, ComparePage,
 
 
 class Meta(BaseModel):
-    contract: Contract = Field(
+    contract: str = Field(
         "editorial-report",
-        description="设计规范。按场景选，不按话题选：先调用 list_deck_contracts 看 use_when")
+        description="设计规范名。用户给了参考图片或 Excel 时，用 extract_style 返回的 name；"
+                    "否则调用 list_deck_contracts 按场景（不是话题）选")
     org: Optional[str] = Field(None, description="左上角机构名")
     date: Optional[str] = Field(None, description="右上角日期或状态")
     footer: Optional[str] = None

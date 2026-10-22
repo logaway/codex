@@ -95,6 +95,12 @@ def add_text(slide, op, canvas_w):
     run.text = op["s"]
     f = run.font
     f.name = op["font"]
+    # f.name 只設定 <a:latin>。中文字元走 <a:ea>，不設的話 PowerPoint 用佈景主題的
+    # 東亞字體，品牌字體對中文完全不生效。
+    rPr = run.font._rPr
+    latin = rPr.find(qn("a:latin"))
+    ea = rPr.makeelement(qn("a:ea"), {"typeface": op["font"]})
+    latin.addnext(ea)
     f.size = Pt(size * 0.75)               # px → pt
     f.bold = int(op.get("weight", 400)) >= 600
     f.color.rgb = rgb(op["fill"])
