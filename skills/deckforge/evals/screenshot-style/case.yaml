@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: screenshot-style
+expected_outcome: |
+  从截图提取配色和页边距（浅米色背景、墨绿强调色），生成 .pptx；迁移阶段用 timeline 或 pipeline 表达且当前阶段为第二阶段；告知用户截图取色是近似值。
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: brand-excel-style
+expected_outcome: |
+  从 brand.xlsx 提取样式（强调色 #F2C200 黄色、深蓝背景 #0B2545、思源黑体），黄色若因对比度被调整要告诉用户，提醒字体需要安装，生成 .pptx。
+context:
+  scaffold_script: place-files.sh

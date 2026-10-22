@@ -169,12 +169,17 @@ class Canvas:
                 f"文案過長已截斷：「{s[:22]}…」精簡到約 {int(max_lines * max_w / size)} 字")
         lh = self.ct.lh(size)
         fill = self.ct.c[color or r["color"]]
+        since = self.mark()
         for i, ln in enumerate(lines):
             self.ops.append({"op": "text", "x": x, "y": y + i * lh, "s": ln,
                              "font": self.ct.f[r["font"]], "size": size,
                              "weight": r["weight"], "tracking": 0,
                              "anchor": "start", "fill": fill,
                              "w": measure(ln, size)})
+        # 同一段折出來的各行是一個整體。不分組的話 stretch 會把每行當成獨立
+        # 的層，把段落的最後一兩個字甩到遠處
+        if len(lines) > 1:
+            self.group(since)
         return y + (len(lines) - 1) * lh
 
     def mark(self):
@@ -240,8 +245,11 @@ class Canvas:
         if extra <= 0:
             return
         idx = {lv: i for i, lv in enumerate(levels)}
-        for o in self.ops[since:]:
-            o["y"] += extra * idx[level_of(o)]
+        # 先算完每個圖元的層再移動：邊移邊算的話，組內先移動的圖元會改變
+        # 組的最小 y，後面的圖元就找不到自己的層了
+        shifts = [extra * idx[level_of(o)] for o in self.ops[since:]]
+        for o, dy in zip(self.ops[since:], shifts):
+            o["y"] += dy
 
     def svg(self):
         ct = self.ct; out = []

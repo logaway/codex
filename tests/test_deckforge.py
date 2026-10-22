@@ -111,3 +111,21 @@ def test_author_gives_up_after_rounds():
                       "items": [{"heading": "a"}, {"heading": "b"}]}]}
     with pytest.raises(ValueError):
         create_deck_author(FakeLLM([bad] * 2), rounds=2).invoke("x")
+
+
+def test_wrapped_paragraph_lines_stay_together(tmp_path):
+    """stretch 拉开层间距时，同一段折出的行必须保持正常行距。"""
+    deck = {"meta": {"contract": "technical-deck"}, "pages": [
+        {"shape": "title", "title": "封面标题写结论"},
+        {"shape": "points", "title": "三项能力覆盖报销从录入到入账的全流程",
+         "items": [{"heading": "拍照识别发票", "body": "员工拍照即可自动识别发票信息，免去手工录入，" * 2},
+                   {"heading": "审批流可配置", "body": "按规则配置审批链。"},
+                   {"heading": "对接主流 ERP", "body": "单据同步入账。"}]}]}
+    res = render_deck(deck, out_dir=str(tmp_path))
+    assert res["ok"], res
+    dl = json.load(open(tmp_path / "pages" / "display-list.json", encoding="utf-8"))
+    body = [o for o in dl["pages"][1]["ops"] if o["op"] == "text" and o["size"] == 17
+            and o["x"] == min(p["x"] for p in dl["pages"][1]["ops"] if p["op"] == "text")]
+    ys = sorted(o["y"] for o in body)
+    gaps = {b - a for a, b in zip(ys, ys[1:])}
+    assert len(ys) >= 2 and len(gaps) == 1 and gaps.pop() <= 17 * 1.8

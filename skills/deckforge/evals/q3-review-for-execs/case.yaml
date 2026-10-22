@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: q3-review-for-execs
+expected_outcome: |
+  生成一个可编辑的 .pptx，6–8 页左右，标题都是结论句，用了多种版式，只使用用户给出的数字，交付时说明是初稿。

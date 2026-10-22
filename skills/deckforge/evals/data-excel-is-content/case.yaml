@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: data-excel-is-content
+expected_outcome: |
+  把 Excel 当作数据来源而不是样式参考：读出各区域数据，找出表现最差的区域写进结论标题，用 table 或 metrics 展示，生成 .pptx。
+context:
+  scaffold_script: place-files.sh
