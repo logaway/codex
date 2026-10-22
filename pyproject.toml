@@ -1,0 +1,21 @@
+[project]
+name = "deckforge"
+version = "0.1.0"
+description = "LLM 只写内容、程序计算全部几何的 PPT 生成工具，可作为 LangChain 工具调用"
+requires-python = ">=3.10"
+dependencies = ["pydantic>=2", "python-pptx>=1.0"]
+
+[project.optional-dependencies]
+langchain = ["langchain-core>=1.0"]
+preview = ["Pillow>=10"]
+dev = ["pytest", "langchain-core>=1.0"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["deckforge", "deckforge.engine"]
+
+[tool.setuptools.package-data]
+deckforge = ["contracts/*.json", "shapes.md"]

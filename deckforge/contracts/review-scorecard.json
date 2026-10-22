@@ -1,0 +1,92 @@
+{
+  "name": "review-scorecard",
+  "use_when": "季度業務回顧、客戶成功彙報。目標、實績與風險需要經得起追問。",
+  "not_when": {
+    "募資簡報（計分卡讀起來像報表不像故事）": "exec-brief",
+    "要推導到某個建議的論證型簡報": "editorial-report"
+  },
+  "signature": "KPI 計分卡列作為主展品，每個指標必帶目標值與差異。",
+  "avoid": [
+    "紅、琥珀、綠作為圖表數列顏色（這三色只保留給 RAG 狀態標記）",
+    "一頁超過六個 KPI",
+    "沒有目標值與差異的 KPI",
+    "彩虹或漸變圖表、3D 長條、用圓餅圖表現趨勢",
+    "純標籤式標題",
+    "沒有負責人與到期日的狀態標記"
+  ],
+  "canvas": {
+    "w": 1280,
+    "h": 720
+  },
+  "grid": 8,
+  "margin": {
+    "x": 80,
+    "top": 72,
+    "bottom": 56
+  },
+  "gutter": 48,
+  "fonts": {
+    "serif": "Noto Serif CJK SC",
+    "sans": "Inter"
+  },
+  "colors": {
+    "bg": "#F6F8FB",
+    "ink": "#0F2344",
+    "body": "#3D4A5C",
+    "muted": "#98A6BA",
+    "accent": "#1D4F91",
+    "rule": "#D9E1EC"
+  },
+  "type": {
+    "display": {
+      "size": 58,
+      "font": "serif",
+      "weight": 700,
+      "color": "ink"
+    },
+    "lead": {
+      "size": 24,
+      "font": "sans",
+      "color": "muted"
+    },
+    "metric": {
+      "size": 68,
+      "font": "serif",
+      "weight": 700,
+      "color": "ink"
+    },
+    "h2": {
+      "size": 34,
+      "font": "serif",
+      "weight": 700,
+      "color": "ink"
+    },
+    "h3": {
+      "size": 21,
+      "font": "sans",
+      "weight": 600,
+      "color": "ink"
+    },
+    "body": {
+      "size": 18,
+      "font": "sans",
+      "color": "body"
+    },
+    "eyebrow": {
+      "size": 14,
+      "font": "sans",
+      "tracking": 2,
+      "color": "accent"
+    },
+    "caption": {
+      "size": 13,
+      "font": "sans",
+      "color": "muted"
+    }
+  },
+  "rules": {
+    "dividers": true,
+    "cards": false,
+    "index": true
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "name": "editorial-report",
+  "use_when": "彙報、複盤、需要被細讀或列印的文件。論述多於數字。",
+  "not_when": {
+    "五分鐘口頭彙報、數字是主角": "exec-brief",
+    "投影而非列印、內容密度高": "technical-deck"
+  },
+  "signature": "細髮絲線分欄，不用卡片。層級靠字號與留白，不靠邊框。",
+  "avoid": [
+    "圓角卡片配彩色頂條",
+    "任何漸變",
+    "為每欄配專屬顏色",
+    "圖表圖例（改為直接標註在圖形上）",
+    "小號怯懦的數字——metric 就該大",
+    "純標籤式標題（用 action title，見 shapes.md）"
+  ],
+  "canvas": {
+    "w": 1280,
+    "h": 720
+  },
+  "grid": 8,
+  "margin": {
+    "x": 80,
+    "top": 72,
+    "bottom": 56
+  },
+  "gutter": 56,
+  "fonts": {
+    "serif": "Noto Serif CJK SC",
+    "sans": "Noto Sans CJK SC"
+  },
+  "colors": {
+    "bg": "#FAF9F7",
+    "ink": "#14181C",
+    "body": "#3C4650",
+    "muted": "#6B7280",
+    "accent": "#1D4E4A",
+    "rule": "#DCD9D3"
+  },
+  "type": {
+    "display": {
+      "size": 56,
+      "font": "serif",
+      "weight": 600,
+      "color": "ink"
+    },
+    "lead": {
+      "size": 24,
+      "font": "sans",
+      "color": "muted"
+    },
+    "metric": {
+      "size": 68,
+      "font": "serif",
+      "weight": 600,
+      "color": "ink"
+    },
+    "h2": {
+      "size": 34,
+      "font": "serif",
+      "weight": 600,
+      "color": "ink"
+    },
+    "h3": {
+      "size": 21,
+      "font": "sans",
+      "weight": 600,
+      "color": "ink"
+    },
+    "body": {
+      "size": 18,
+      "font": "sans",
+      "color": "body"
+    },
+    "eyebrow": {
+      "size": 14,
+      "font": "sans",
+      "tracking": 2,
+      "color": "accent"
+    },
+    "caption": {
+      "size": 13,
+      "font": "sans",
+      "color": "muted"
+    }
+  },
+  "rules": {
+    "dividers": true,
+    "cards": false,
+    "index": false
+  }
+}

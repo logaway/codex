@@ -1,0 +1,95 @@
+{
+  "name": "stat-callout",
+  "use_when": "策略彙報、轉型路線圖、趨勢簡報。要大機構的權威感，單一數字撐起整頁。",
+  "not_when": {
+    "需要細讀的長篇論述": "editorial-report",
+    "技術細節評審": "technical-deck"
+  },
+  "signature": "超大數字標註：一個 110px 以上的強調色數字，下方一行說明加一行小號來源，用 1px 髮絲線與相鄰元素分隔。",
+  "avoid": [
+    "任何第二強調色（藍/青/橙/綠一律不用）",
+    "強調色的漸變、發光或玻璃擬態",
+    "襯線或圓體字",
+    "Title Case 或全大寫標題（用句首大寫）",
+    "帶陰影的圓角卡片",
+    "圖表圖例與網格線、3D 或環形裝飾",
+    "全綵庫存照片",
+    "怯懦的小號統計數字——數字就該大到不容忽視",
+    "純標籤式標題"
+  ],
+  "canvas": {
+    "w": 1280,
+    "h": 720
+  },
+  "grid": 8,
+  "margin": {
+    "x": 88,
+    "top": 72,
+    "bottom": 56
+  },
+  "gutter": 56,
+  "fonts": {
+    "serif": "Archivo",
+    "sans": "Inter"
+  },
+  "colors": {
+    "bg": "#000000",
+    "ink": "#FFFFFF",
+    "body": "#C9C7CE",
+    "muted": "#66646E",
+    "accent": "#A100FF",
+    "rule": "#2A2830"
+  },
+  "type": {
+    "display": {
+      "size": 66,
+      "font": "serif",
+      "weight": 800,
+      "color": "ink"
+    },
+    "lead": {
+      "size": 26,
+      "font": "sans",
+      "color": "muted"
+    },
+    "metric": {
+      "size": 116,
+      "font": "serif",
+      "weight": 800,
+      "color": "accent"
+    },
+    "h2": {
+      "size": 38,
+      "font": "serif",
+      "weight": 700,
+      "color": "ink"
+    },
+    "h3": {
+      "size": 21,
+      "font": "sans",
+      "weight": 600,
+      "color": "ink"
+    },
+    "body": {
+      "size": 18,
+      "font": "sans",
+      "color": "body"
+    },
+    "eyebrow": {
+      "size": 14,
+      "font": "sans",
+      "tracking": 3,
+      "color": "accent"
+    },
+    "caption": {
+      "size": 13,
+      "font": "sans",
+      "color": "muted"
+    }
+  },
+  "rules": {
+    "dividers": true,
+    "cards": false,
+    "index": false
+  }
+}

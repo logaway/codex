@@ -1,0 +1,92 @@
+{
+  "name": "exec-brief",
+  "use_when": "給決策者的短彙報，5 分鐘內講完。數字是主角，論述壓到最低。",
+  "not_when": {
+    "需要細讀或列印的長篇論述": "editorial-report",
+    "技術評審、需要展開細節": "technical-deck"
+  },
+  "signature": "超大數字獨佔視覺焦點，一頁一個論點。留白就是設計。",
+  "avoid": [
+    "一頁超過四個數字",
+    "沒有對照基準的孤立數字",
+    "任何裝飾線條或圖標",
+    "三行以上的正文段落",
+    "強調色用作填充（只用於 eyebrow 與標記）",
+    "純標籤式標題"
+  ],
+  "canvas": {
+    "w": 1280,
+    "h": 720
+  },
+  "grid": 8,
+  "margin": {
+    "x": 96,
+    "top": 80,
+    "bottom": 56
+  },
+  "gutter": 64,
+  "fonts": {
+    "serif": "Noto Sans CJK SC",
+    "sans": "Noto Sans CJK SC"
+  },
+  "colors": {
+    "bg": "#FFFFFF",
+    "ink": "#0A0A0A",
+    "body": "#404040",
+    "muted": "#8A8A8A",
+    "accent": "#B4351E",
+    "rule": "#E4E4E4"
+  },
+  "type": {
+    "display": {
+      "size": 68,
+      "font": "sans",
+      "weight": 700,
+      "color": "ink"
+    },
+    "lead": {
+      "size": 27,
+      "font": "sans",
+      "color": "muted"
+    },
+    "metric": {
+      "size": 92,
+      "font": "sans",
+      "weight": 700,
+      "color": "ink"
+    },
+    "h2": {
+      "size": 40,
+      "font": "sans",
+      "weight": 700,
+      "color": "ink"
+    },
+    "h3": {
+      "size": 23,
+      "font": "sans",
+      "weight": 600,
+      "color": "ink"
+    },
+    "body": {
+      "size": 19,
+      "font": "sans",
+      "color": "body"
+    },
+    "eyebrow": {
+      "size": 14,
+      "font": "sans",
+      "tracking": 3,
+      "color": "accent"
+    },
+    "caption": {
+      "size": 14,
+      "font": "sans",
+      "color": "muted"
+    }
+  },
+  "rules": {
+    "dividers": false,
+    "cards": false,
+    "index": true
+  }
+}

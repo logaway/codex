@@ -1,0 +1,91 @@
+{
+  "name": "technical-deck",
+  "use_when": "技術分享、架構評審。內容密度高，會被投影而非列印。",
+  "not_when": {
+    "給非技術決策者的彙報": "exec-brief",
+    "需要列印歸檔的正式文件（深色底不適合列印）": "editorial-report"
+  },
+  "signature": "髮絲線分欄配等寬序號，強調色只在 eyebrow 與時間軸標記點出現。",
+  "avoid": [
+    "深色底上用純白正文（用 body 色，降低刺眼）",
+    "螢光色作大面積填充",
+    "截圖直接貼上不裁切",
+    "程式碼區塊超過八行",
+    "純標籤式標題"
+  ],
+  "canvas": {
+    "w": 1280,
+    "h": 720
+  },
+  "grid": 8,
+  "margin": {
+    "x": 72,
+    "top": 64,
+    "bottom": 48
+  },
+  "gutter": 40,
+  "fonts": {
+    "serif": "Noto Sans CJK SC",
+    "sans": "Noto Sans CJK SC"
+  },
+  "colors": {
+    "bg": "#11161C",
+    "ink": "#F2F5F7",
+    "body": "#AEB9C4",
+    "muted": "#6C7A88",
+    "accent": "#5FD3B4",
+    "rule": "#28323C"
+  },
+  "type": {
+    "display": {
+      "size": 52,
+      "font": "sans",
+      "weight": 600,
+      "color": "ink"
+    },
+    "lead": {
+      "size": 22,
+      "font": "sans",
+      "color": "muted"
+    },
+    "metric": {
+      "size": 60,
+      "font": "sans",
+      "weight": 600,
+      "color": "ink"
+    },
+    "h2": {
+      "size": 31,
+      "font": "sans",
+      "weight": 600,
+      "color": "ink"
+    },
+    "h3": {
+      "size": 20,
+      "font": "sans",
+      "weight": 600,
+      "color": "ink"
+    },
+    "body": {
+      "size": 17,
+      "font": "sans",
+      "color": "body"
+    },
+    "eyebrow": {
+      "size": 13,
+      "font": "sans",
+      "tracking": 2,
+      "color": "accent"
+    },
+    "caption": {
+      "size": 13,
+      "font": "sans",
+      "color": "muted"
+    }
+  },
+  "rules": {
+    "dividers": true,
+    "cards": false,
+    "index": true
+  }
+}
