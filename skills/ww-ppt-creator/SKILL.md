@@ -1,9 +1,9 @@
 ---
-name: deckforge
+name: ww-ppt-creator
 description: 生成看起来像专业设计、而不是 AI 模板的 PPT，输出原生可编辑的 .pptx。只要用户要做 PPT、幻灯片、演示文稿、汇报、复盘、路演、评审 deck、slides、presentation，就使用本技能；用户抱怨 AI 生成的 PPT 难看、廉价、像模板、不专业，或者上传图片、截图、品牌规范 Excel，要求"照这个风格 / 用我们的品牌色"做 PPT 时，也要使用，即使没有明确说"生成 PPT"。还涵盖把 PPT 生成接入 LangChain / agent 应用。
 ---
 
-# deckforge
+# ww-ppt-creator
 
 做出看起来经过设计、而不是生成出来的 PPT。
 

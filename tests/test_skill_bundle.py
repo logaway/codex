@@ -14,8 +14,9 @@ from test_deckforge import DECK  # noqa: E402
 def test_bundle_is_self_contained(tmp_path):
     out, archive = build(str(tmp_path / "dist"))
     names = zipfile.ZipFile(archive).namelist()
-    assert "deckforge/SKILL.md" in names
-    assert "deckforge/scripts/deckforge/engine/build.py" in names
+    assert archive.endswith("ww-ppt-creator.skill")
+    assert "ww-ppt-creator/SKILL.md" in names
+    assert "ww-ppt-creator/scripts/deckforge/engine/build.py" in names
     assert not any("/evals/" in n or "__pycache__" in n for n in names)
 
     # 在仓库外、隔离模式下运行，确认用的是包内附带的 deckforge

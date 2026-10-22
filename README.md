@@ -60,16 +60,16 @@ res["pptx"], res["warnings"], res["avoid"]
 
 任何支持 `with_structured_output` 的聊天模型都可以，包括本地模型：模型只需要填字段，不需要算坐标。校验失败时会把具体错误回喂给模型，默认最多重试 3 轮。见 `examples/chain_example.py`。
 
-## 用法三：作为 skill 安装（Claude / Deep Agents）
+## 用法三：作为 skill 安装（Claude / Deep Agents）：ww-ppt-creator
 
-`skills/deckforge/` 是 skill 源码：`SKILL.md` 写流程，`references/` 是按需读取的文档，`scripts/deckforge_cli.py` 是命令行入口，`evals/` 是测试用例。打包：
+`skills/ww-ppt-creator/` 是 skill 源码：`SKILL.md` 写流程，`references/` 是按需读取的文档，`scripts/deckforge_cli.py` 是命令行入口，`evals/` 是测试用例。打包：
 
 ```bash
-python3 tools/build_skill.py      # → dist/deckforge/ 与 dist/deckforge.skill
+python3 tools/build_skill.py      # → dist/ww-ppt-creator/ 与 dist/ww-ppt-creator.skill
 ```
 
 打包时会把 `deckforge/` 包复制进 `scripts/`，产物自包含：装上就能用，不需要 LangChain，也不需要先 pip 安装这个仓库。
-`deckforge.skill` 可以在 claude.ai 安装；`dist/deckforge/` 目录可以放进 Claude Code 的 `~/.claude/skills/` 或 Deep Agents 的 skills 目录。
+`ww-ppt-creator.skill` 可以在 claude.ai 安装；`dist/ww-ppt-creator/` 目录可以放进 Claude Code 的 `~/.claude/skills/` 或 Deep Agents 的 skills 目录。
 
 deckforge 代码只在仓库根目录维护一份，不要直接改 `dist/` 里的副本。
 
@@ -98,7 +98,7 @@ deckforge/
   style.py       从参考图片 / Excel 提取设计规范
   engine/        排版引擎、检查器、PPTX 导出（标准库 + python-pptx）
   contracts/     设计规范
-skills/deckforge/   skill 源码（SKILL.md、references、CLI、evals）
+skills/ww-ppt-creator/   skill 源码（SKILL.md、references、CLI、evals）
 tools/build_skill.py  打包成自包含 skill
 ```
 
