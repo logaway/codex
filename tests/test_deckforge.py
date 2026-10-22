@@ -129,3 +129,15 @@ def test_wrapped_paragraph_lines_stay_together(tmp_path):
     ys = sorted(o["y"] for o in body)
     gaps = {b - a for a, b in zip(ys, ys[1:])}
     assert len(ys) >= 2 and len(gaps) == 1 and gaps.pop() <= 17 * 1.8
+
+
+def test_table_with_short_h3_labels_is_not_flagged_weak_hierarchy(tmp_path):
+    """每行一个短标签（h3）配一段正文的表格，正文仍应按文字量判定，层级 1.89× 达标。"""
+    deck = {"meta": {"contract": "editorial-report"}, "pages": [
+        {"shape": "title", "title": "封面标题写结论"},
+        {"shape": "table", "title": "状态在前、事项在后的表格版式",
+         "columns": ["状态", "事项"], "weights": [1, 5],
+         "rows": [["已完成", f"第{i}项事项的较长说明文字，占据正文的主要篇幅"] for i in range(8)]}]}
+    res = render_deck(deck, out_dir=str(tmp_path))
+    assert res["ok"], res
+    assert not [f for f in res["findings"] if f["code"] == "WEAK_HIERARCHY"]

@@ -227,7 +227,14 @@ class Page:
         small = [s for s in self.font_sizes if s < top]
         if not small:
             return          # 整頁只有一級字（如 statement 頁），層級無從談起
-        body = Counter(small).most_common(1)[0][0]
+        # 正文 = 承載文字最多的那一級，而不是文字框最多的那一級。表格與進度頁
+        # 每行一個短小的 h3 標籤配一段正文，按文字框個數算會打平甚至選成標籤，
+        # 把 1.89× 的版面誤報成 1.62×
+        chars = Counter()
+        for t in self.texts:
+            if t["size"] < top:
+                chars[t["size"]] += len(t["s"])
+        body = chars.most_common(1)[0][0]
         ratio = top / body if body else 0
         if ratio < self.cfg["min_type_ratio"]:
             self.findings.append(Finding(
